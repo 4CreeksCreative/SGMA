@@ -1,0 +1,44 @@
+doctype html
+html
+
+	head
+		meta(charset='utf8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge, chrome=1')
+		meta(name='description', content='SGMA Website')
+		meta(name='author', content= "4Creeks Creative - JJ Fry")
+		link(rel="icon" href="/img/logo/icon-color.png")
+		//- uncomment if your site is responsive!
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+		link(href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Roboto+Slab:100,300,400,700', rel='stylesheet')
+
+		script(src="/customjs/01jquery-3.2.1.min.js")
+		//-script(src="/geo/coordinates.js")
+		//-script(src="/geo/groundwaterBasins.js")
+
+		!= css("/")
+
+		block head
+
+		//- Grab the url using _path and isolate JUST the name of the page
+		- var pageClass = /((?!\/)\w+(?=\.))/.exec(_path) == null ? '' : /((?!\/)\w+(?=\.))/.exec(_path)
+		//- If the page is just a template for a post, get the template, and the post title
+		- if(pageClass[0] === undefined && entry != null & entry.sys.contentType.sys.id != undefined){pageClass = entry.sys.contentType.sys.id + ' - ' + entry.title}
+		- else{pageClass = pageClass[0]}
+		//- Log the page in the console on compile
+		- console.log('loading a page type: ' + pageClass)
+		//- add the page name variable to front-end scripts
+		script.
+			var pageClass = '#{pageClass}'
+	
+	body
+		
+		include partials/_header
+		
+		.content
+			block content
+		
+		include partials/_footer
+		include partials/_typeform
+		
+		!= js("/")
+		script(id="dsq-count-scr" src="//sgma.disqus.com/count.js" async)

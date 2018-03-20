@@ -1,0 +1,72 @@
+extends /layout
+block content
+	section#first.parallax.imagebg.lightblue.height-40(data-overlay="5")
+		.background-image-holder
+			img(src="#{asset(entry.featuredImage)}")
+		.container
+			h1= entry.title
+			.md!= md(entry.featuredText)
+	section#steps
+		.container
+			.row
+				.col-sm-12
+					- var stepColor = entry.section.fields.color != undefined ? entry.section.fields.color : 'blue'
+					.md(class="#{stepColor}")!= md(entry.body)
+	if entry.images != undefined
+		section
+			.container.masonry
+				.row.masonry__container
+					for image in entry.images
+						.masonry__item.col-sm-3
+							a(href="#{asset(image)}" data-lightbox="true")
+								img(src="#{asset(image)}")
+	section
+		.container.masonry
+			.row
+				.col-sm-12
+					- var hcolor = entry.section.fields.color != undefined ? entry.section.fields.color : 'blue'
+					h3(class="color-#{hcolor}") Related Steps
+			#howto.row.masonry__container
+				if howToSteps[entry.section.fields.id] != undefined
+					for step in howToSteps[entry.section.fields.id]
+						- var filter = (step.section.fields.id != undefined) ? step.section.fields.id : slugify(step.section.fields.title)
+						- var cats = 'filter-' + filter
+						- var size = step.size === 'big' ? 'col-md-6 big' : 'col-md-3'
+						- var color = (step.section.fields.color != undefined) ? step.section.fields.color : 'blue'
+						.how-to-step.col-sm-6.col-xs-12.masonry__item.project(class="#{cats +' '+size}")
+							figure.imagebg(class="#{color}" data-overlay)
+								.background-image-holder
+									img(src="#{asset(step.featuredImage)}")
+								h5.title= step.title
+								a(href="#{step._url}")
+									figcaption
+										.md!= md(step.featuredText)
+			
+							
+			
+	section#comments
+		.container
+			.row
+				.col-sm-12
+					//-p= JSON.stringify(entry.sys)
+
+					//- add disqus comments to each project page
+					#disqus_thread
+					script.
+						/* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+						*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+						
+						var disqus_config = function () {
+						this.page.url = 'http://sgma.netlify.com/info/#{entry.id}';  // this is the page's URL
+						this.page.identifier = '#{entry.sys.id}'; // this is the unique ID for the entry on contentful
+						};
+						
+						(function() { // DON'T EDIT BELOW THIS LINE
+						var d = document, s = d.createElement('script');
+						s.src = 'https://sgma.disqus.com/embed.js';
+						s.setAttribute('data-timestamp', +new Date());
+						(d.head || d.body).appendChild(s);
+						})();
+					noscript
+						| Please enable JavaScript to view the 
+						a(href='https://disqus.com/?ref_noscript') comments powered by Disqus.

@@ -1,0 +1,115 @@
+extends /layout
+
+block content
+	section#first.imagebg.blue(data-overlay="5")
+		.background-image-holder
+			img(src="/img/test.jpg")
+		.container
+			.row.text-center
+				.col-sm-12
+					h1.color-blue Project Central
+					p.color-blue.
+						Lorem ipsum dolor sit amet, consectetur adipisifwcing elit, sed do eiusmod tempor incididunt ut labore et dolore roipi magna aliqua. Ut enim ad minim veeniam, quis nostruklad exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in tufpoy voluptate velit esse cillum dolore eu fugiat nulla parieratur. Excepteur sint.
+
+	section
+		.container.masonry
+			.row.masonry-filter-holder.masonry-filters--horizontal
+				.masonry__filters(data-filter-all-text='All Categories')
+					ul
+						li.active(data-masonry-filter='*') All Categories
+						if contentful.categories != undefined
+							for category in contentful.categories
+								li(data-masonry-filter='#{category.id}')= category.title
+			#Projects.row.masonry__container
+				if contentful.projects != undefined
+					for item in contentful.projects
+						- var cats = ''
+						if item.categories != undefined
+							for category in item.categories
+								- cats+=' filter-'+category.fields.id
+						.col-md-3.col-sm-6.col-xs-12.masonry__item.project(class="#{cats}")
+							a(href="#{item._url}")
+								.imagebg.blue(data-overlay="5")
+									.background-image-holder
+										img(src="#{asset(item.headerImage)}")
+									.container
+										h5= item.title
+										.stats.clearfix
+											a.color-white(href="/project/#{item.id}#comments")
+												i.comments.fa.fa-comment
+												span.comment-count.disqus-comment-count(data-disqus-identifier="#{item.sys.id}")
+											//-a.share(href="/share") Share
+		.container.mt--2
+			.row.text-center
+				.col-sm-12
+					h2.color-blue Project Locations
+		#map-container.row.unmarg.pos-relative
+			#map(style="height:100%;")
+				script(src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.js')
+				link(href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.css', rel='stylesheet')
+				
+				//- initial map center is based on the first project (if there is one, otherwise use a default coordinate)
+				- var center = [-119.286733, 36.327473]
+				if contentful.projects != undefined
+					- var lng = contentful.projects[0].locationLng != undefined ? contentful.projects[0].locationLng : undefined
+					- var lat = contentful.projects[0].locationLat != undefined ? contentful.projects[0].locationLat : undefined
+					- if(lat != undefined && lng != undefined){center = [lng,lat]}
+				//- initialize map
+				script.
+					mapboxgl.accessToken = 'pk.eyJ1IjoiZGVlcGZyeSIsImEiOiJjajUwNnowYnIyZGhnMzNyNGdkMThxYzNtIn0.2as5SwBqekMQuwmuxhQsjw';
+					var map = new mapboxgl.Map({
+						container: 'map',
+						style: 'mapbox://styles/deepfry/cjc2ajuhd13hi2rl9qygm543r',
+						zoom: 10,
+						center: [#{center}],//default = [-119.286733, 36.327473],
+						scrollZoom: false
+					});
+			#mapOverlay.pos-absolute.text-center
+				if contentful.projects != undefined
+					script.
+						var geojson = {
+							"id":"markers",
+							"type": "FeatureCollection",
+							"features": []
+							}
+					ul
+						//- iterate through projects and push their info to the geojson object
+						for project in contentful.projects
+							if project.locationLat && project.locationLng != undefined
+								li.location
+									.imagebg
+										.background-image-holder
+											img(src="#{asset(project.headerImage)}")
+									span.loc= project.title
+									script.
+										geojson.features.push({
+											"type": "feature",
+											"properties": {
+												"title": "#{project.title}",
+												"url":"#{project._url}"
+												},
+											"geometry": {
+												"type": "Point",
+												"coordinates": [#{project.locationLng}, #{project.locationLat}]
+												}
+										})
+						script.
+							geojson.features.forEach(function(marker) {
+							// create a DOM element for the marker
+							var el = document.createElement('div');
+							el.className = 'marker';
+							el.style.backgroundImage = 'url(/img/pin.png)';
+							//el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
+							el.style.width = '30px';
+							el.style.height = '44px';
+							el.addEventListener('mouseenter', function(e) {
+								$('.mapboxgl-popup').hide();
+								infoBox(marker);
+							});
+							// add marker to map
+							new mapboxgl.Marker(el)
+								.setLngLat(marker.geometry.coordinates)
+								.addTo(map);
+							});
+				else
+					h3.unmarg No projects at this time

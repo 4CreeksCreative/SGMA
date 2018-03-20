@@ -1,0 +1,68 @@
+extends /layout
+block content
+	section#first.parallax.imagebg.lightblue.height-40(data-overlay="5")
+		.background-image-holder
+			img(src="/img/headers/calendar.jpg")
+		.container
+			h1= entry.title
+			if entry.dateFormatted != undefined
+				//-p=JSON.stringify(entry.dateFormatted)
+				h5= entry.dateFormatted.dayName + ' ' + entry.dateFormatted.month + ' ' + entry.dateFormatted.day + ', ' + entry.dateFormatted.year
+	if entry.body != undefined
+		section
+			.container
+				.row
+					.col-sm-12
+						.md!= md(entry.body)
+	if entry.agenda != undefined
+		section#angenda
+			.container
+				.row
+					.col-sm-12
+						if entry.agenda.fields.title != undefined
+							h2.color-blue= entry.agenda.fields.title
+						if entry.agenda.fields.body != undefined
+							.md!= md(entry.agenda.fields.body)
+						if entry.agenda.fields.files != undefined
+							for file in entry.agenda.fields.files
+								a.btn.blue(href="#{asset(file)}" target="_blank")
+									span.btn__text.color-white= file.fields.title
+	if entry.minutes != undefined
+		section#minutes
+			.container
+				.row
+					.col-sm-12
+						if entry.minutes.fields.title != undefined
+							h2.color-blue= entry.minutes.fields.title
+						if entry.minutes.fields.body != undefined
+							.md!= md(entry.minutes.fields.body)
+						if entry.minutes.fields.files != undefined
+							for file in entry.minutes.fields.files
+								a.btn.blue(href="#{asset(file)}" target="_blank")
+									span.btn__text.color-white= file.fields.title
+	section#comments
+		.container
+			.row
+				.col-sm-12
+					//-p= JSON.stringify(entry.sys)
+
+					//- add disqus comments to each project page
+					#disqus_thread
+					script.
+						/* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+						*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+						
+						var disqus_config = function () {
+						this.page.url = 'http://sgma.netlify.com/meeting/#{entry.id}';  // this is the page's URL
+						this.page.identifier = '#{entry.sys.id}'; // this is the unique ID for the entry on contentful
+						};
+						
+						(function() { // DON'T EDIT BELOW THIS LINE
+						var d = document, s = d.createElement('script');
+						s.src = 'https://sgma.disqus.com/embed.js';
+						s.setAttribute('data-timestamp', +new Date());
+						(d.head || d.body).appendChild(s);
+						})();
+					noscript
+						| Please enable JavaScript to view the 
+						a(href='https://disqus.com/?ref_noscript') comments powered by Disqus.

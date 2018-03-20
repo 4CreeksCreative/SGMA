@@ -1,0 +1,111 @@
+extends /layout
+block content
+	- var bgpos = entry.headerPosition != undefined ? entry.headerPosition : 'bg-cc'
+	section#first.parallax.imagebg.lightblue.height-40(data-overlay="5" class="#{bgpos}")
+		.background-image-holder
+			img(src="#{asset(entry.headerImage)}")
+		.container
+			h1= entry.pageTitle
+	if entry.subPageSections != undefined
+		//- are there linked subPageSections?
+		for section in entry.subPageSections
+			//- iterate through each section and determine which template to use based on content model
+			if section.sys.contentType.sys.id === "textSection"
+				//- if the section is a text section...
+				section
+					.container
+						//- subhead is optional
+						if section.fields.subhead != undefined
+							.row
+								.col-sm-12
+									h3.color-blue= section.fields.subhead
+						//- body is optional
+						if section.fields.body != undefined
+							.row
+								.col-sm-12
+									.md!= md(section.fields.body)
+			else if section.sys.contentType.sys.id === 'table'
+				//- If the section is a table...
+				- var tableID = section.tableId == undefined ? '' : section.tableId
+				section
+					.container
+						.row(id="#{tableID}")
+							.col-sm-12
+								//- optional paragraph above table (markdown syntax)
+								if section.fields.description != undefined
+									.md!= md(section.fields.description)
+								table
+									//- table head is required, but if statement keeps code from breaking
+									if section.fields.tableHead != undefined
+										thead
+											//- iterate through table rows within the head (should only be one)
+											for tr in section.fields.tableHead.fields.tableRows
+												tr
+													//- iterate through table cells within each row
+													for th in tr.fields.tableCells
+														//- declare rowspan and colspan (should be blank in the table head)
+														- var rowspan = th.fields.rowspan == undefined ? '' : th.fields.rowspan
+														- var colspan = th.fields.colspan == undefined ? '' : th.fields.colspan
+														//- output table data, or leave the th blank?
+														if th.fields.data != undefined
+															th.md(rowspan="#{rowspan}", colspan="#{colspan}")!= md(th.fields.data)
+														else
+															th
+									//- table body is required, but if statement keeps code from breaking
+									if section.fields.tableBody != undefined
+										tbody
+											//- iterate through table rows within the body
+											for tr in section.fields.tableBody.fields.tableRows
+												tr
+													//- iterate through table cells within each row
+													for td in tr.fields.tableCells
+														//- declare rowspan and colspan for each td
+														- var rowspan = td.fields.rowspan == undefined ? '' : td.fields.rowspan
+														- var colspan = td.fields.colspan == undefined ? '' : td.fields.colspan
+														//- output table data, or leave the td blank?
+														if td.fields.data != undefined
+															td.md(rowspan="#{rowspan}", colspan="#{colspan}")!= md(td.fields.data)
+														else
+															td
+			else if section.sys.contentType.sys.id === 'imageSection'
+				//-p=JSON.stringify(section)
+				section
+					.container.masonry
+						if section.fields.description != undefined
+							.row.mb--2
+								.col-sm-12
+									.md!= md(section.fields.description)
+						if section.fields.images != undefined
+							.row.masonry__container
+								for image in section.fields.images
+									.col-sm-3.col-xs-6.masonry__item
+										a(href="#{asset(image)}" data-lightbox="true")
+											img(src="#{asset(image)}")
+											
+							
+	section#comments
+		.container
+			.row
+				.col-sm-12
+					//-p= JSON.stringify(entry.sys)
+
+					//- add disqus comments to each project page
+					#disqus_thread
+					script.
+						/* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+						*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+						
+						var disqus_config = function () {
+						this.page.url = 'http://sgma.netlify.com/#{entry.id}';  // this is the page's URL
+						this.page.identifier = '#{entry.sys.id}'; // this is the unique ID for the entry on contentful
+						};
+						
+						(function() { // DON'T EDIT BELOW THIS LINE
+						var d = document, s = d.createElement('script');
+						s.src = 'https://sgma.disqus.com/embed.js';
+						s.setAttribute('data-timestamp', +new Date());
+						(d.head || d.body).appendChild(s);
+						})();
+					noscript
+						| Please enable JavaScript to view the 
+						a(href='https://disqus.com/?ref_noscript') comments powered by Disqus.

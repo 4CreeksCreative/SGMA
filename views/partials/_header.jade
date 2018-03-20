@@ -1,0 +1,30 @@
+#menu-overlay-toggle.custom-toggled-class(data-toggle-class='#menu-overlay-toggle,#menu1,body;custom-toggled-class')
+header
+	#menu2.nav-container.visible-xs.visible-sm.hidden-md.hidden-lg.hidden-xl
+			.container.header
+				.row(style="position:relative;")
+					.float-left
+						a.logo(href='/')
+							img(alt='logo', src='/img/logo/icon.png')
+					.float-right.text-right
+						a.hamburger-toggle(href='#', data-toggle-class='#menu-overlay-toggle,#menu1,body;custom-toggled-class')
+							i.icon.icon--sm.stack-interface.stack-menu
+	nav#menu1
+		.container.header
+			.row(style="position:relative;")
+				.float-left.hidden-xs.hidden-sm
+					a.logo(href='/')
+						img(alt='logo', src='/img/logo/logo.png')
+				.float-right.text-right
+					.bar__module
+						ul.menu-horizontal.text-left
+							li
+								a(href="/projects") Project Central
+							li
+								a(href="/#resources") Resources
+							li
+								a(href="/#whoweare") Who We Are
+							li
+								a(href="/info") Info
+							li
+								a(href="/#contact") Contact

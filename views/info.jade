@@ -1,0 +1,41 @@
+extends /layout
+
+block content
+	section#first.imagebg.blue(data-overlay="5")
+		.background-image-holder
+			img(src="/img/test.jpg")
+		.container
+			.row.text-center
+				.col-sm-12
+					h1.color-blue Project Central
+					p.color-blue.
+						Lorem ipsum dolor sit amet, consectetur adipisifwcing elit, sed do eiusmod tempor incididunt ut labore et dolore roipi magna aliqua. Ut enim ad minim veeniam, quis nostruklad exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in tufpoy voluptate velit esse cillum dolore eu fugiat nulla parieratur. Excepteur sint.
+
+	section
+		//-p= JSON.stringify(contentful.howToStep)
+		.container.masonry
+			.row.masonry-filter-holder.masonry-filters--horizontal
+				.masonry__filters(data-filter-all-text='All Categories')
+					ul
+						li.active(data-masonry-filter='*') All Categories
+						if contentful.howTo != undefined
+							for category in contentful.howTo
+								- var id = (category.id != undefined) ? category.id : slugify(category.title)
+								li(data-masonry-filter='#{id}')= category.title
+			#howto.row.masonry__container
+				if howToSteps != undefined
+					//-p= JSON.stringify(howToSteps)
+					for sections in howToSteps
+						for step in sections
+							- var filter = (step.section.fields.id != undefined) ? step.section.fields.id : slugify(step.section.fields.title)
+							- var cats = 'filter-' + filter
+							- var size = step.size === 'big' ? 'col-md-6 big' : 'col-md-3'
+							- var color = (step.section.fields.color != undefined) ? step.section.fields.color : 'blue'
+							.how-to-step.col-sm-6.col-xs-12.masonry__item.project(class="#{cats +' '+size}")
+								figure.imagebg(class="#{color}" data-overlay)
+									.background-image-holder
+										img(src="#{asset(step.featuredImage)}")
+									h5.title= step.title
+									a(href="#{step._url}")
+										figcaption
+											.md!= md(step.featuredText)

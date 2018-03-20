@@ -1,0 +1,642 @@
+@import 'zy_settings'
+
+
+
+body
+	color $font
+	.content,footer
+		position relative
+	.content,header,footer
+		right 0
+		transition 0.5s
+body.custom-toggled-class
+	.content,header,footer
+		right 80vw
+		transition 0.5s
+// --- footer
+footer
+	a.logo
+		img.logo
+			max-width 200px
+
+
+// --- buttons
+.btn
+	border-radius 0 !important
+	border none !important
+.btn-blue
+	background-color $blue
+	.btn__text
+		color $white
+.btn-white
+	background-color $white
+	.btn__text
+		color $blue
+
+
+// --- misc
+table
+	border solid $blue 1px
+	thead
+		tr
+			th
+				background $blue
+				color $white
+	tbody
+		tr
+			&:nth-child(odd)
+				td
+					background #f0f0f0
+			td
+				a
+					color $blue
+					&:hover
+						color $blue
+				&:not(:last-child)
+					border-right 1px solid $blue
+.height-40
+	min-height 40vh
+	height auto
+.blue-underline
+	border-bottom $blue 2px solid
+.white-underline
+	border-bottom $white 2px solid
+h1,h2,h3,h4,h5,h6,p,span
+	&[class*="-underline"]
+		display inline-block
+#menu2
+	height $headerheight
+	z-index 3
+	position relative
+	//ul.menu-horizontal
+		// li
+		// 	a
+		// 		color $white
+		// 		opacity 1
+#menu1
+	background none
+section#first
+	&>.container
+		padding 100px 15px 0 15px
+section
+	padding-top 50px !important
+	padding-bottom 50px
+	
+
+// --- general MD formatting
+.md
+	ul,ol
+		padding-left 24px
+	ul
+		li
+			list-style-type disc
+
+// -- colors and overlays
+
+.imagebg
+	.background-image-holder
+		background-position center center
+// .bg-blue
+// 	background-color $blue
+// .bg-lightblue
+// 	background-color $lightblue
+	
+for prop,val in $colors
+	.bg-{prop}
+		background-color val
+		
+		
+.bg-ct > .background-image-holder
+	background-position center top !important
+.bg-cb > .background-image-holder
+	background-position center bottom !important
+.bg-cc > .background-image-holder
+	background-position center center !important
+
+
+for prop,val in $colors
+	.color-{prop}
+		color val
+
+// .color-blue
+// 	color $blue
+// .color-violet
+// 	color $violet
+// .color-red
+// 	color $red
+// .color-yellow
+// 	color $yellow
+// .color-green
+// 	color $green
+// .color-teal
+// 	color $teal
+// .color-orange
+// 	color $orange
+// .color-lightblue
+// 	color $lightblue
+// .color-white
+// 	color $white
+
+.btn
+	border none
+	border-radius 0px
+	for prop,val in $colors
+		&.{prop}
+			background-color val
+	// &.blue
+	// 	background-color $blue
+	// &.lightblue
+	// 	background-color $lightblue
+	// &.violet
+	// 	background-color $violet
+	// &.green
+	// 	background-color $green
+	// &.teal
+	// 	background-color $teal
+	&:not(.white)
+		.btn__text
+			color $white
+	.btn__text
+		font-weight 600
+		font-size 18px
+		text-transform uppercase
+
+[data-overlay]
+	&::before
+		opacity 0.5
+	&.heavy::before
+		opacity 0.9
+	for prop,val in $colors
+		&.{prop}::before
+			background val
+	// &.blue::before
+	// 	background $blue
+	// &.violet::before
+	// 	background $violet
+	// &.teal::before
+	// 	background $teal
+	// &.yellow::before
+	// 	background $yellow
+	// &.orange::before
+	// 	background $orange
+	// &.red::before
+	// 	background $red
+	// &.green::before
+	// 	background $green
+	// &.lightblue::before
+	// 	background $lightblue
+	.container
+		z-index 1
+
+
+
+
+
+
+
+// --- Map
+#map-container
+	height 800px
+	@media (max-width:992px)
+		height 600px
+	@media (max-width:767px)
+		height 400px
+#map
+	padding 0
+	.marker
+		cursor pointer
+		background-size contain
+		background-repeat no-repeat
+		background-position center center
+#mapOverlay
+	top 0
+	padding 10px
+	z-index 2
+	display block
+	background rgba(255,255,255,0.5)
+	width 100%
+	ul
+		font-size 0
+		text-align center
+		white-space nowrap
+		overflow-x auto
+		overflow-y visible
+		.location
+			z-index 3
+			font-size 1.4em
+			height 75px
+			display inline-block
+			margin-bottom 0
+			&:not(:last-child)
+				margin-right 10px
+			&:hover
+				cursor pointer
+				span.loc
+					top 95px
+					transition 0.2s
+					opacity 1
+					visibility visible
+			.imagebg
+				display inline-block
+				height 75px
+				width 75px
+			span.loc
+				display inline-block
+				position absolute
+				top 80px
+				left 0
+				right 0
+				margin auto
+				text-align center
+				opacity 0
+				line-height 20px
+				color $white
+				font-size 20px
+				font-weight 600
+				letter-spacing 2px
+				width auto
+				background $bluet
+				padding 15px
+				transition 0.2s
+				white-space normal
+				visibility hidden
+			//white-space nowrap
+// @media (max-width:992px)
+// 	#mapOverlay
+// 		padding 10px
+// 		.location
+// 			height 50px
+// 			&:hover
+// 				cursor pointer
+// 				span.loc
+// 					left 120px
+// 					transition 0.2s
+// 			.imagebg
+// 				height 50px
+// 				width 50px
+// 			span.loc
+// 				top 30px
+// 				font-size 18px
+// 				font-weight 600
+// 				letter-spacing 2px
+// 				padding 0 15px
+// 				transition 0.2s
+.mapboxgl-popup-content
+	padding 20px 10px 10px 10px !important
+	h1,h2,h3,h4,h5,h6,p
+		margin-bottom 5px
+	.mapboxgl-popup-close-button
+		font-size 18px
+		right 5px
+// --- google calendar
+#calendar
+	.fc-content
+		white-space normal
+	.fc-event
+		border-radius 0
+		padding 0 5px
+	.fc-title
+		font-weight 500
+	.fc-day-number
+		font-size 14px
+	button
+		border-radius 0px
+		border none
+		background $blue
+		color $white
+		span
+			color $white
+		&.fc-state-active, &:active
+			background $transblue
+	.fc-today
+		background-color $transblue
+		.fc-day-number
+			color $white
+
+
+
+
+// --- Steps
+
+#howto
+	.how-to-step
+		figure
+			position relative
+			padding-top 100%
+			.title
+				text-align left
+				position absolute
+				top 10px
+				left 15px
+				color $white
+				z-index 3
+			img
+				margin-bottom 0 !important
+			figcaption
+				height 100%
+				width 100%
+				top 0
+				position absolute
+				transition 0.2s
+				.md
+					position absolute
+					bottom -20px
+					left 0
+					right 0
+					padding 0 15px
+					line-height 22px
+					font-size 15px
+					font-style normal
+					font-weight 300
+					text-decoration none
+					color $white
+					visibility hidden
+					transition 0.2s
+					opacity 0
+					&::before
+						content ''
+						width 50%
+						display block
+						position relative
+						top -10px
+						border-top-style solid
+						border-top-width 5px
+			for prop, val in $colors
+				&.{prop}
+					figcaption
+						.md::before
+							border-top-color val
+			// &.red
+			// 	figcaption
+			// 		.md::before
+			// 			border-top-color $red
+			// &.yellow
+			// 	figcaption
+			// 		.md::before
+			// 			border-top-color $yellow
+			// &.orange
+			// 	figcaption
+			// 		.md::before
+			// 			border-top-color $orange
+			// &.blue
+			// 	figcaption
+			// 		.md::before
+			// 			border-top-color $blue
+			// &.teal
+			// 	figcaption
+			// 		.md::before
+			// 			border-top-color $teal
+			// &.green
+			// 	figcaption
+			// 		.md::before
+			// 			border-top-color $green
+			// &.violet
+			// 	figcaption
+			// 		.md::before
+			// 			border-top-color $violet
+			&:hover
+				figcaption
+					background rgba(0,0,0,0.4)
+					transition 0.2s
+					z-index 2
+					.md
+						bottom 10px
+						transition 0.2s
+						opacity 1
+						visibility visible
+						z-index 3
+#steps
+	.md
+		ol
+			counter-reset li
+			padding-left 24px
+			margin 30px 0
+			li
+				list-style none
+				font-size 18px
+				border-left-width 3px
+				border-left-style solid
+				padding-left 15px
+				&::before
+					content counter(li)
+					counter-increment li
+					position absolute
+					left 10px
+					font-size 30px
+					font-weight 800
+		for prop,val in $colors
+			&.{prop}
+				ol
+					li
+						border-left-color val
+						&::before
+							color val
+
+
+// ---- header
+#menu-overlay-toggle
+	//display none
+	height 100%
+	width 100%
+	position fixed
+	z-index 99
+	background rgba(0,0,0,0.5)
+	transition 0.5s
+	right 80vw
+	&.custom-toggled-class
+		z-index 0
+		display block
+		background rgba(0,0,0,0.0)
+		transition 0.5s
+		right 0
+.dropdown__content
+	border-radius 0 !important
+	//box-shadow none !important
+	li
+		padding 10px 20px
+	a
+		padding 10px 20px
+#menu1
+	width auto
+	float none !important
+	padding-top 10px
+header
+	height 80px
+	background $white
+	position absolute
+	z-index 10
+	width 100%
+	box-shadow 0px 0px 10px rgba(0,0,0,0.5)
+	&.sticky
+		height 80px
+		position fixed
+		nav
+			ul.menu-horizontal
+				li
+					a,span
+						color $blue
+						opacity 1
+						&:hover
+							color $blue
+							opacity 0.8
+	a.logo
+		height 80px
+		position absolute
+		z-index 5
+		top 0
+		bottom 0
+		margin auto
+		img
+			height 80px
+
+	.hamburger-toggle i
+		color $blue
+	.nav-container
+		height 100%
+
+	nav
+		ul.menu-horizontal
+			position relative
+			li
+				line-height 60px
+				font-size 17px
+				text-transform uppercase
+				a,span
+					color $blue
+					opacity 1 !important
+					&:hover
+						color $blue
+						opacity 0.8 !important
+@media (max-width:992px)
+	header
+		padding-top 10px
+		height 70px
+		&.sticky
+			height 70px
+		a.logo
+			height 60px
+			position absolute
+			z-index 5
+			top 0
+			bottom 0
+			margin auto
+			img
+				height 60px
+		nav
+			position fixed
+			right -80vw
+			transition 0.5s
+			&.custom-toggled-class
+				right -30px
+				padding-right calc(50% - 50px)
+				transition 0.5s
+			ul.menu-horizontal
+				li
+					display block
+					a,span
+						color $blue
+						opacity 1 !important
+						&:hover
+							opacity 0.8 !important
+							color $blue
+// ---- projects section on HOME PAGE
+#projects
+	.project:not(:last-child)
+		margin-bottom 50px
+#typeform
+	width 1100px
+	max-width 90vw
+//projects on PROJECTS PAGE
+#Projects
+	.project
+		//cursor pointer
+		.imagebg
+			min-height 300px
+			.container
+				height 100%
+				position absolute
+				padding 15px 20px
+				width 100%
+				.stats
+					bottom 0
+					left 0
+					position absolute
+					padding 15px 20px
+					width 100%
+					font-size 16px
+					i
+						position relative
+						top 8px
+						margin-right 8px
+					.comments,.comment-count
+						text-align left
+						float left
+					.share
+						text-align right
+						float right
+// resources section
+#resources
+	.resource
+		cursor pointer
+		@media (max-width 992px)
+			margin-bottom 25px
+		.imagebg
+			height 300px
+			.title
+				position relative
+			.title, .title > h5 
+				transition 0.5s
+		&:hover
+			.title
+				background $bluet
+				h5
+					line-height 300px
+			.title, .title > h5
+				transition 0.5s
+//organizations
+#organizations, #SGMAbullets
+	.organization, .SGMAbullet
+		position relative
+		float none
+		display inline-block
+		height 200px
+		.front,.back
+			transform-style preserve-3d
+			padding 25px
+			//-position absolute
+		&>.front
+			position absolute
+			z-index 2
+			height inherit
+			width 100%
+			padding 15px
+			top 0
+			left 0
+			transform rotateY(0deg)
+			backface-visibility hidden
+			transition all .4s ease-in-out
+		&>.back
+			position absolute
+			z-index 1
+			height inherit
+			width 100%
+			padding 15px
+			top 0
+			left 0
+			transform rotateY(-179deg)
+			backface-visibility hidden
+			transition all .4s ease-in-out
+		&:hover
+			.front
+				transform rotateY(179deg)
+			.back
+				transform rotateY(0deg)
+#SGMAbullets
+	.SGMAbullet
+		.front,.back
+			.container
+				p
+					color $white
+					text-align left
+					font-size 16px
+					line-height 22px !important
