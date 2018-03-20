@@ -8,7 +8,7 @@ block content
 			.row.text-center
 				.col-sm-12
 					img(src="/img/logo/logo-white.png")
-					a.btn.btn-blue(href="#")
+					a.btn.blue(href="#")
 						span.btn__text Learn More
 	section.bg-brown
 		.container
@@ -21,7 +21,7 @@ block content
 						“A central feature of these bills is the recognition that groundwater management in California is best accomplished locally. Local agencies will now have the power to assess the conditions of their local groundwater basins and take the necessary steps to bring those basins in a state of chronic long-term overdraft into balance.” 
 					p.color-white.text-right.
 						– Governor Edmund G. Brown Jr.
-	section
+	section#about
 		.container
 			.row.text-center
 				.col-sm-12
@@ -204,7 +204,7 @@ block content
 							});
 				else
 					h3.unmarg No projects at this time
-	section.bg-lightblue
+	//-section.bg-lightblue
 		.container
 			.row.text-center
 				.col-sm-12
@@ -240,7 +240,7 @@ block content
 										img(src="/img/test.jpg")
 									.title.bg-blue
 										h5 Resource Title
-	section#whoweare
+	//-section#whoweare
 		.container
 			#organizations.row
 				.col-sm-4
@@ -313,7 +313,15 @@ block content
 												a(href="#{meeting._url}#minutes") Minutes
 										else
 											td Minutes TBA
-	section#contact.bg-blue
+			.container
+				.row.text-center
+					.col-sm-12
+						h2.color-blue Water Project Central
+				.row.text-center
+					.col-sm-12
+						a.btn.blue.modal-trigger(data-modal-index='0' href="#")
+							span.btn__text Have a Project Idea?
+	section#contact.bg-brown
 		.container
 			.row
 				.col-sm-12
@@ -332,5 +340,5 @@ block content
 								label.color-white Message:
 								textarea.validate-required(rows='6', name='Message')
 							.col-sm-5.col-md-4.center-column
-								a.btn.btn-white(type='submit', data-text='Send Enquiry')
+								a.btn.white(type='submit', data-text='Send Enquiry')
 									span.btn__text Send Enquiry

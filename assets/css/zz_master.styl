@@ -24,23 +24,23 @@ footer
 .btn
 	border-radius 0 !important
 	border none !important
-.btn-blue
-	background-color $blue
-	.btn__text
-		color $white
-.btn-white
-	background-color $white
-	.btn__text
-		color $blue
+	for prop,val in $colors
+		&.{prop}
+			background-color val
+			.btn__text
+				color $white
+	&.white
+		.btn__text
+			color $blue
 
 
 // --- misc
 table
-	border solid $blue 1px
+	border solid $brown 1px
 	thead
 		tr
 			th
-				background $blue
+				background $brown
 				color $white
 	tbody
 		tr
@@ -49,11 +49,11 @@ table
 					background #f0f0f0
 			td
 				a
-					color $blue
+					color $brown
 					&:hover
-						color $blue
+						color $brown
 				&:not(:last-child)
-					border-right 1px solid $blue
+					border-right 1px solid $brown
 .height-40
 	min-height 40vh
 	height auto
