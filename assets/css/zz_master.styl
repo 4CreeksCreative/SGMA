@@ -653,17 +653,36 @@ header
 #SGMAbullets
 	.SGMAbullet
 		position relative
-		height 250px
+		@media(min-width:992px)
+			height 250px
+			box-sizing border-box
+			&:nth-child(-n+3)
+				border-bottom 1px solid $brown
+				border-right 1px solid $brown
+			&:nth-child(4)
+				border-bottom 1px solid $brown
+			&:nth-child(n+5):not(:last-child)
+				border-right 1px solid $brown
+		@media(max-width:992px)
+			padding 20px 15px
+			&:not(:first-child)
+				border-top 1px solid $brown
+			
 		.front,.back
-			position absolute
+			@media(min-width:992px)
+				position absolute
+				width 90%
+				height 90%
+				margin 5%
+				.container
+					position relative
+					top 50%
+					transform translateY(-50%)
 			z-index 2
 			height inherit
-			width 90%
-			height 90%
-			margin 5%
 			.container
 				p
-					color $white
+					color $brown
 					text-align left
 					font-size 18px
 					line-height 22px !important

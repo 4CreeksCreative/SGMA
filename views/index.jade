@@ -33,44 +33,44 @@ block content
 			#SGMAbullets.row
 				.col-sm-12
 					.row.text-center
-						.col-sm-3.SGMAbullet
-							.front.bg-brown
-								.container.pos-vertical-center
+						.col-md-3.SGMAbullet
+							.front
+								.container
 									p!= md("Provides for __sustainable__ management of groundwater basins")
 
-						.col-sm-3.SGMAbullet
-							.front.bg-brown
-								.container.pos-vertical-center
+						.col-md-3.SGMAbullet
+							.front
+								.container
 									p!= md("__Enhances__ local management of groundwater consistent with rights to use or store groundwater")
 
-						.col-sm-3.SGMAbullet
-							.front.bg-brown
-								.container.pos-vertical-center
+						.col-md-3.SGMAbullet
+							.front
+								.container
 									p!= md("Establishes minimum standards for __effective, continuous__ management of groundwater")
 
-						.col-sm-3.SGMAbullet
-							.front.bg-brown
-								.container.pos-vertical-center
+						.col-md-3.SGMAbullet
+							.front
+								.container
 									p!= md("Provides local groundwater agencies with the authority, technical, and financial assistance needed to __maintain__ groundwater supplies")
 
-						.col-sm-3.SGMAbullet
-							.front.bg-brown
-								.container.pos-vertical-center
+						.col-md-3.SGMAbullet
+							.front
+								.container
 									p!= md("Avoids or __minimizes impacts__ for land subsidence")
 
-						.col-sm-3.SGMAbullet
-							.front.bg-brown
-								.container.pos-vertical-center
+						.col-md-3.SGMAbullet
+							.front
+								.container
 									p!= md("Improves data collection and __understanding__ of groundwater resources and management")
 
-						.col-sm-3.SGMAbullet
-							.front.bg-brown
-								.container.pos-vertical-center
+						.col-md-3.SGMAbullet
+							.front
+								.container
 									p!= md("__Increases__ groundwater storage and removes impediments to recharge")
 
-						.col-sm-3.SGMAbullet
-							.front.bg-brown
-								.container.pos-vertical-center
+						.col-md-3.SGMAbullet
+							.front
+								.container
 									p!= md("Empowers local agencies to manage groundwater basins, while __minimizing state intervention__")
 
 				
@@ -82,42 +82,6 @@ block content
 					p.color-white.
 						There are three groundwater sub-basins in Tulare County, they include: Kings Sub-Basin; Kaweah Sub-Basin; and Tule Sub-Basin. Multiple Groundwater Sustainable Agencies (GSAs) are currently being establish in each groundwater sub-basin.
 	section#GSALocations
-		//-.container
-			.row.text-center
-				.col-sm-12
-					h2.color-blue Water Project Central
-			//-.row.text-center
-				.col-sm-12
-					a.btn.btn-blue.modal-trigger(data-modal-index='0' href="#")
-						span.btn__text Have a Project Idea?
-
-		//-.container.mt--2
-			#Projects.row.masonry__container
-				if contentful.projects != undefined
-					- var max = 4
-					for item in contentful.projects
-						- max--
-						if max >= 0
-							- var cats = ''
-							if item.categories != undefined
-								for category in item.categories
-									- cats+=' filter-'+category.fields.id
-							.col-md-3.col-sm-6.masonry__item.project(class="#{cats}")
-								a(href="#{item._url}")
-									.imagebg.blue(data-overlay="5")
-										.background-image-holder
-											img(src="#{asset(item.headerImage)}")
-										.container
-											h5= item.title
-											.stats.clearfix
-												a.color-white(href="/project/#{item.id}#comments")
-													i.comments.fa.fa-comment
-													span.comment-count.disqus-comment-count(data-disqus-identifier="#{item.sys.id}")
-												//-a.share(href="/share") Share
-			.row.text-center
-				.col-sm-12
-						a.btn.btn-blue(href="/projects")
-							span.btn__text See All Projects
 		.container.mt--2
 			.row.text-center
 				.col-sm-12
