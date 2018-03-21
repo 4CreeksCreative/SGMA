@@ -6,8 +6,9 @@ block content
 			img(src="/img/headers/home.jpg")
 		.container
 			.row.text-center
-				.col-sm-12
+				.col-sm-12.mb--1
 					img(src="/img/logo/logo-white.png")
+				.col-sm-12
 					a.btn.blue(href="#")
 						span.btn__text Learn More
 	section.bg-white
@@ -119,17 +120,34 @@ block content
 						//- iterate through projects and push their info to the geojson object
 						for project in contentful.projects
 							if project.locationLat && project.locationLng != undefined
-								li.location
+								li.location(class="#{project.categories[0].fields.id}")
 									.imagebg
 										.background-image-holder
 											img(src="#{asset(project.headerImage)}")
-									span.loc= project.title
+									span.loc(class="#{project.categories[0].fields.id}")= project.title
+									
 									script.
+										var pin = "/img/pin1.png"
+										switch('#{project.categories[0].fields.id}'){
+											case "tule-sub-basin":
+												pin = "/img/pin1.png"
+												break;
+											case "kaweah-sub-basin":
+												pin = "/img/pin2.png"
+												break;
+											case "kings-sub-basin":
+												pin = "/img/pin3.png"
+												break;
+											default:
+												console.log("error in switch case statement on map section")
+													}
 										geojson.features.push({
 											"type": "feature",
 											"properties": {
 												"title": "#{project.title}",
-												"url":"#{project._url}"
+												"url":"#{project._url}",
+												"markerImg":pin,
+												"class":"#{project.categories[0].fields.id}"
 												},
 											"geometry": {
 												"type": "Point",
@@ -140,8 +158,8 @@ block content
 							geojson.features.forEach(function(marker) {
 							// create a DOM element for the marker
 							var el = document.createElement('div');
-							el.className = 'marker';
-							el.style.backgroundImage = 'url(/img/pin.png)';
+							el.className = 'marker ' + marker.properties.class;
+							el.style.backgroundImage = 'url('+marker.properties.markerImg+')';
 							//el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
 							el.style.width = '30px';
 							el.style.height = '44px';
