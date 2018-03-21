@@ -27,14 +27,18 @@ footer
 	for prop,val in $colors
 		&.{prop}
 			background-color val
-			.btn__text
+			.btn__text:not([class*="color-"])
 				color $white
 	&.white
-		.btn__text
+		.btn__text:not([class*="color-"])
 			color $blue
 
 
 // --- misc
+.col-center
+	float none
+	margin-left auto
+	margin-right auto
 table
 	border solid $brown 1px
 	thead
@@ -90,6 +94,9 @@ section
 	ul
 		li
 			list-style-type disc
+p
+	strong,em
+		color inherit
 
 // -- colors and overlays
 
@@ -114,28 +121,6 @@ for prop,val in $colors
 	background-position center center !important
 
 
-for prop,val in $colors
-	.color-{prop}
-		color val
-
-// .color-blue
-// 	color $blue
-// .color-violet
-// 	color $violet
-// .color-red
-// 	color $red
-// .color-yellow
-// 	color $yellow
-// .color-green
-// 	color $green
-// .color-teal
-// 	color $teal
-// .color-orange
-// 	color $orange
-// .color-lightblue
-// 	color $lightblue
-// .color-white
-// 	color $white
 
 .btn
 	border none
@@ -160,6 +145,31 @@ for prop,val in $colors
 		font-weight 600
 		font-size 18px
 		text-transform uppercase
+
+for prop,val in $colors
+	.color-{prop}
+		color val
+
+// .color-blue
+// 	color $blue
+// .color-violet
+// 	color $violet
+// .color-red
+// 	color $red
+// .color-yellow
+// 	color $yellow
+// .color-green
+// 	color $green
+// .color-teal
+// 	color $teal
+// .color-orange
+// 	color $orange
+// .color-lightblue
+// 	color $lightblue
+// .color-white
+// 	color $white
+
+
 
 [data-overlay]
 	&::before
@@ -255,7 +265,7 @@ for prop,val in $colors
 				font-weight 600
 				letter-spacing 2px
 				width auto
-				background $bluet
+				background: $colors.brownt1
 				padding 15px
 				transition 0.2s
 				white-space normal
@@ -594,8 +604,8 @@ header
 			.title, .title > h5
 				transition 0.5s
 //organizations
-#organizations, #SGMAbullets
-	.organization, .SGMAbullet
+#organizations
+	.organization
 		position relative
 		float none
 		display inline-block
@@ -633,10 +643,21 @@ header
 				transform rotateY(0deg)
 #SGMAbullets
 	.SGMAbullet
+		position relative
+		height 250px
 		.front,.back
+			position absolute
+			z-index 2
+			height inherit
+			width 90%
+			height 90%
+			margin 5%
 			.container
 				p
 					color $white
 					text-align left
-					font-size 16px
+					font-size 18px
 					line-height 22px !important
+					strong
+						font-weight 700
+						color $lightblue
