@@ -1,6 +1,6 @@
-# IRWMP
+# SGMA
 
-IRWMP Website
+SGMA Website
 
 ## Setup
 
