@@ -43,7 +43,7 @@ $(document).ready(function(){
 })
 function infoBox(obj){
 	var popup = new mapboxgl.Popup()
-		.setHTML('<div class="mapPopupContent '+obj.properties.class+'"><h4>'+obj.properties.title+'</h4><a class="btn" href="'+obj.properties.url+'"><span class="btn__text">Contact GSA</span></a></div>')
+		.setHTML('<div class="text-center mapPopupContent '+obj.properties.class+'"><h4>'+obj.properties.title+'</h4><a class="btn" href="'+obj.properties.url+'"><span class="btn__text">Contact GSA</span></a></div>')
 		.setLngLat(obj.geometry.coordinates)
 		.addTo(map);
 }
