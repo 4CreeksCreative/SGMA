@@ -1,9 +1,9 @@
 extends /layout
 block content
-	section#first.parallax.imagebg.lightblue.height-40(data-overlay="5")
+	section#first.parallax.imagebg.brown.height-40(data-overlay="5")
 		.background-image-holder
 			img(src="#{asset(entry.featuredImage)}")
-		.container
+		.container.pos-vertical-center
 			h1= entry.title
 			.md!= md(entry.featuredText)
 	section#steps
