@@ -112,7 +112,8 @@ block content
 						for project in contentful.projects
 							if project.locationLat && project.locationLng != undefined
 								li.location(class="#{project.categories[0].fields.id}")
-									.imagebg
+									h2.initials= project.initials
+									//-.imagebg
 										.background-image-holder
 											img(src="#{asset(project.headerImage)}")
 									span.loc(class="#{project.categories[0].fields.id}")= project.title

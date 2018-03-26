@@ -237,14 +237,29 @@ for prop,val in $colors
 			z-index 3
 			font-size 1.4em
 			height 75px
+			width 75px
 			display inline-block
 			margin-bottom 0
+			//position relative
+			.initials
+				color $white
+				font-size 40px
+				line-height 40px
+				position relative
+				bottom -27px
+				left -10px
+				margin 0
+				font-weight 300
+				overflow hidden
 			&.tule-sub-basin
 				border: solid 3px $colors.bluet1
+				background-color: $colors.bluet1
 			&.kaweah-sub-basin
 				border: solid 3px $colors.greent1
+				background-color: $colors.greent1
 			&.kings-sub-basin
 				border: solid 3px $colors.brownt1
+				background-color: $colors.brownt1
 			&:not(:last-child)
 				margin-right 10px
 			&:hover
