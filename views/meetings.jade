@@ -1,0 +1,48 @@
+extends /layout
+
+block content
+	section#first.imagebg.brown.height-40(data-overlay="5")
+		.background-image-holder
+			img(src="/img/test.jpg")
+		.container.pos-vertical-center
+			.row.text-center
+				.col-sm-12
+					h1.color-blue Meetings
+					//-p.color-blue.
+						Lorem ipsum dolor sit amet, consectetur adipisifwcing elit, sed do eiusmod tempor incididunt ut labore et dolore roipi magna aliqua. Ut enim ad minim veeniam, quis nostruklad exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in tufpoy voluptate velit esse cillum dolore eu fugiat nulla parieratur. Excepteur sint.
+
+	if contentful.meetings != undefined
+		section#meetings
+			.container
+				.row.text-center
+					.col-sm-12
+						h3.color-blue Quarterly Meetings
+				.row
+					.col-sm-12
+						table
+							thead
+								tr
+									th Date
+									th Agenda
+									th Minutes
+							tbody
+								for meeting in contentful.meetings
+									tr
+										td
+											a(href="#{meeting._url}")= meeting.title + ' - ' + meeting.dateFormatted.month + ' ' + meeting.dateFormatted.day + ' ' + meeting.dateFormatted.year
+										if meeting.agenda != undefined
+											td
+												a(href="#{meeting._url}#agenda") Agenda
+										else
+											td Agenda TBA
+										if meeting.minutes != undefined
+											td
+												a(href="#{meeting._url}#minutes") Minutes
+										else
+											td Minutes TBA
+	else
+		section
+			.container
+				.row
+					.col-sm-12
+						h2.color-blue No meetings to display at this time

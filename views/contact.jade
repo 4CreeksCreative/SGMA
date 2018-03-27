@@ -1,0 +1,34 @@
+extends /layout
+
+block content
+	section#first.imagebg.brown.height-40(data-overlay="5")
+		.background-image-holder
+			img(src="/img/test.jpg")
+		.container.pos-vertical-center
+			.row.text-center
+				.col-sm-12
+					h1.color-blue Contact
+					//-p.color-blue.
+						Lorem ipsum dolor sit amet, consectetur adipisifwcing elit, sed do eiusmod tempor incididunt ut labore et dolore roipi magna aliqua. Ut enim ad minim veeniam, quis nostruklad exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in tufpoy voluptate velit esse cillum dolore eu fugiat nulla parieratur. Excepteur sint.
+
+	section#contact
+		.container
+			.row.text-center
+				.col-sm-12
+					h3.color-white CONTACT
+			.row
+				.col-sm-8.col-md-7.col-center
+					.row.text-center
+						form.text-left.form-email.attempted-submit(action="/thankyou" data-success="Thanks for your enquiry, we'll be in touch shortly.", data-error='Please fill in all fields correctly.', data-recaptcha-theme='light', netlify='' novalidate='true')
+							.col-sm-6
+								label.color-blue Your Name:
+								input.validate-required(type='text', name='Name')
+							.col-sm-6
+								label.color-blue Email Address:
+								input.validate-required.validate-email(type='email', name='Email')
+							.col-sm-12
+								label.color-blue Message:
+								textarea.validate-required(rows='6', name='Message')
+							.col-sm-12.text-center
+								a.btn.blue(type='submit', data-text='Send Enquiry')
+									span.btn__text Send Enquiry

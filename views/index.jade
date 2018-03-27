@@ -77,7 +77,7 @@ block content
 		.container.mt--2
 			.row.text-center
 				.col-sm-12
-					h3.color-blue Tule Sub-Basin GSA Locations
+					h3.color-blue Tule Subbasin Groundwater Sustainability Agencies
 		#map-container.row.unmarg.pos-relative
 			#map(style="height:100%;")
 				script(src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.js')
@@ -172,35 +172,6 @@ block content
 				else
 					h3.unmarg No projects at this time
 
-	if contentful.meetings != undefined
-		section#meetings
-			.container
-				.row.text-center
-					.col-sm-12
-						h3.color-blue Quarterly Meetings
-				.row
-					.col-sm-12
-						table
-							thead
-								tr
-									th Date
-									th Agenda
-									th Minutes
-							tbody
-								for meeting in contentful.meetings
-									tr
-										td
-											a(href="#{meeting._url}")= meeting.title + ' - ' + meeting.dateFormatted.month + ' ' + meeting.dateFormatted.day + ' ' + meeting.dateFormatted.year
-										if meeting.agenda != undefined
-											td
-												a(href="#{meeting._url}#agenda") Agenda
-										else
-											td Agenda TBA
-										if meeting.minutes != undefined
-											td
-												a(href="#{meeting._url}#minutes") Minutes
-										else
-											td Minutes TBA
 		section
 			.container
 				.row.text-center
@@ -210,24 +181,3 @@ block content
 					.col-sm-12
 						a.btn.blue.modal-trigger(data-modal-index='0' href="#")
 							span.btn__text Have a Project Idea?
-	section#contact.bg-brown
-		.container
-			.row.text-center
-				.col-sm-12
-					h3.color-white CONTACT
-			.row
-				.col-sm-8.col-md-7.col-center
-					.row.text-center
-						form.text-left.form-email.attempted-submit(action="/thankyou" data-success="Thanks for your enquiry, we'll be in touch shortly.", data-error='Please fill in all fields correctly.', data-recaptcha-theme='light', netlify='' novalidate='true')
-							.col-sm-6
-								label.color-white Your Name:
-								input.validate-required(type='text', name='Name')
-							.col-sm-6
-								label.color-white Email Address:
-								input.validate-required.validate-email(type='email', name='Email')
-							.col-sm-12
-								label.color-white Message:
-								textarea.validate-required(rows='6', name='Message')
-							.col-sm-5.col-md-4.col-center
-								a.btn.white(type='submit', data-text='Send Enquiry')
-									span.btn__text.color-brown Send Enquiry
