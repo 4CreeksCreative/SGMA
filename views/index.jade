@@ -97,8 +97,24 @@ block content
 						style: 'mapbox://styles/deepfry/cjc2ajuhd13hi2rl9qygm543r',
 						zoom: 10,
 						center: [#{center}],//default = [-119.286733, 36.327473],
-						scrollZoom: false
+						//scrollZoom: false
 					});
+					map.on('load',function(){
+						map.addSource('counties', {
+							"type": "vector",
+							"url": "mapbox://mapbox.82pkq93d"
+						});
+						map.addLayer({
+							"id": "counties",
+							"type": "fill",
+							"source": "counties",
+							"source-layer": "original",
+							"paint": {
+								"fill-outline-color": "rgba(38, 153, 251,1)",
+								"fill-color": "rgba(38, 153, 251,0.0)"
+							}
+						});
+					})
 			#mapOverlay.pos-absolute.text-center
 				if contentful.projects != undefined
 					script.
